@@ -1,3 +1,6 @@
+
+
+
 #container {
   text-align: center;
 
@@ -6,6 +9,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  
 }
 
 #container strong {
@@ -17,11 +21,27 @@
   font-size: 16px;
   line-height: 22px;
 
-  color: #8c8c8c;
+  color: #fd0a0a;
 
   margin: 0;
 }
 
 #container a {
   text-decoration: none;
+}
+
+.navbar{
+  background-color: red;
+}
+
+.titulo{
+  margin-top: 10%;
+  font-weight: bold;
+  color: rgb(241, 55, 8);
+}
+
+:root {
+  ion-label{
+    text-align: left;
+  }
 }
