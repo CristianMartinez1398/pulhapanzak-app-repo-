@@ -40,4 +40,29 @@ export class HomePage {
     dni: ['', [Validators.required, Validators.minLength(13), Validators.pattern('^[0-9]+$')]],
     numero: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^[0-9]+$')]]
   })
+
+  get EmailInvalido(): boolean{
+    const controlEmail = this.loginForm.get('email');
+    if (controlEmail) {
+      return controlEmail.hasError('email');
+    }
+      return false;
+  }
+
+  get IdentidadInvalido(): boolean{
+    const controlDNI = this.loginForm.get('dni');
+    if (controlDNI) {
+      return controlDNI.hasError('dni');
+    }
+    return false
+  }
+
+  get NumeroInvalido(): boolean{
+    const controlNumero = this.loginForm.get('numero');
+    if (controlNumero) {
+      return controlNumero.hasError('minLength');
+    }
+    return false
+  }
+
 }
