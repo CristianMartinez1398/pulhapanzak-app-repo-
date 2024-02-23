@@ -11,6 +11,8 @@ import {
   IonInput,
   IonLabel,
 } from '@ionic/angular/standalone';
+import { Login } from '../services/auth/models/login'
+import { IonIcon } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +29,8 @@ import {
     IonButton,
     IonInput,
     IonLabel,
+    IonButton,
+    
   ],
 })
 export class HomePage {
@@ -52,7 +56,7 @@ export class HomePage {
   get IdentidadInvalido(): boolean{
     const controlDNI = this.loginForm.get('dni');
     if (controlDNI) {
-      return controlDNI.hasError('dni');
+      return controlDNI.hasError('minlength');
     }
     return false
   }
@@ -60,9 +64,26 @@ export class HomePage {
   get NumeroInvalido(): boolean{
     const controlNumero = this.loginForm.get('numero');
     if (controlNumero) {
-      return controlNumero.hasError('minLength');
+      return controlNumero.hasError('minlength');
     }
     return false
+  }
+
+  get FormInvalid(): boolean {
+    return this.loginForm.valid;
+  }
+
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      const login: Login = {
+        nombre: this.loginForm?.get('nombre')?.value,
+        apellidos: this.loginForm?.get('apellidos')?.value,
+        email: this.loginForm?.get('email')?.value,
+        contrasena: this.loginForm?.get('contrasena')?.value,
+        dni: this.loginForm?.get('dni')?.value,
+        numero: this.loginForm?.get('numero')?.value
+      }
+    }
   }
 
 }
