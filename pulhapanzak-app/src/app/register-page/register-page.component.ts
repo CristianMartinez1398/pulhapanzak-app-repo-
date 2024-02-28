@@ -11,6 +11,7 @@ import {
   IonInput,
   IonLabel,
   IonItem,
+  IonText,
 } from '@ionic/angular/standalone';
 import { Login } from '../services/auth/models/login'
 import { IonIcon } from '@ionic/angular';
@@ -31,7 +32,7 @@ import { IonIcon } from '@ionic/angular';
     IonInput,
     IonLabel,
     IonButton,
-    IonItem
+    IonText
   ],
 })
 export class RegisterPageComponent {

@@ -33,7 +33,7 @@
       </div>
       <ion-input
         style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="email" name="email" type="email" formControlName="email"   ngDefaultControl [ngClass]="{'inactivo_email': EmailInvalido}"></ion-input>
-      
+      <p *ngIf="EmailInvalido" style="text-align: left; margin-left: 5%;">Correo invalido</p>
 
       <div style="display: flex;">
         <img class="icono"  src="https://static.vecteezy.com/system/resources/previews/022/062/251/original/padlock-icon-in-flat-style-clip-art-free-png.png" alt="perfil">
@@ -50,7 +50,9 @@
       </div>
       <ion-input
         style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="dni" name="dni" type="text" formControlName="dni"   ngDefaultControl [ngClass]="{'inactivo_email': !IdentidadInvalido}"></ion-input>
-
+        <p *ngIf="!IdentidadInvalido" style="text-align: left; margin-left: 5%;">Número de identidad solo son 13 digitos</p>
+      
+        
       <div style="display: flex;">
         <img class="icono"  src="https://cdn-icons-png.flaticon.com/512/10309/10309086.png" alt="perfil">
         <h6 style="text-align: left; margin-left: 3%;">Número teléfono</h6>
@@ -59,6 +61,8 @@
 
       <ion-input
         style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;"aria-label="numero" name="numero" type="text" formControlName="numero"   ngDefaultControl [ngClass]="{'inactivo_email': !NumeroInvalido}"></ion-input>
+        <p *ngIf="!NumeroInvalido" style="text-align: left; margin-left: 5%;">Número de teléfono solo son 8 digitos</p>
+      
       <ion-button type="submit" color="danger"  [disabled]="!FormInvalid">Registrarse</ion-button>
     </form>
     
