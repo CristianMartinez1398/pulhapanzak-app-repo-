@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <a href="">
+      <img class="icono-dos"  src="https://cdn-icons-png.flaticon.com/512/3545/3545435.png" alt="">
+    </a>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <h2 class="titulo">Registro</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div style="display: flex;">
+        <img class="icono"  src="https://www.citypng.com/public/uploads/preview/red-user-member-guest-icon-png-image-31634946660nppxpx1zqm.png?v=2023063021" alt="perfil">
+        <h6 style="text-align: left; margin-left: 3%;">Nombres</h6>
+        <p style="color: red; margin-top: 4%;">*</p>
+      </div>
+      <ion-input
+        style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="nombre" name="nombre" type="text" formControlName="nombre"   ngDefaultControl></ion-input>
+
+      <div style="display: flex;">
+        <img class="icono"  src="https://www.citypng.com/public/uploads/preview/red-user-member-guest-icon-png-image-31634946660nppxpx1zqm.png?v=2023063021" alt="perfil">
+        <h6 style="text-align: left; margin-left: 3%;">Apellidos</h6>
+        <p style="color: red; margin-top: 4%;">*</p>
+      </div>
+      <ion-input
+        style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="apellidos" name="apellidos" type="text" formControlName="apellidos"   ngDefaultControl></ion-input>
+
+      <div style="display: flex;">
+        <img class="icono"  src="https://cdn-icons-png.flaticon.com/512/786/786421.png" alt="perfil">
+        <h6 style="text-align: left; margin-left: 3%;">Correo Electrónico</h6>
+        <p style="color: red; margin-top: 4%;">*</p>
+      </div>
+      <ion-input
+        style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="email" name="email" type="email" formControlName="email"   ngDefaultControl [ngClass]="{'inactivo_email': EmailInvalido}"></ion-input>
+      
+
+      <div style="display: flex;">
+        <img class="icono"  src="https://static.vecteezy.com/system/resources/previews/022/062/251/original/padlock-icon-in-flat-style-clip-art-free-png.png" alt="perfil">
+        <h6 style="text-align: left; margin-left: 3%;">Contraseña</h6>
+        <p style="color: red; margin-top: 4%;">*</p>
+      </div>
+      <ion-input
+        style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="contrasena" name="contrasena" type="password" formControlName="contrasena"   ngDefaultControl></ion-input>
+
+      <div style="display: flex;">
+        <img class="icono"  src="https://static.vecteezy.com/system/resources/previews/007/980/318/non_2x/eps10-red-id-card-or-identity-card-line-icon-isolated-on-white-background-vector.jpg" alt="perfil">
+        <h6 style="text-align: left; margin-left: 3%;">Número identidad</h6>
+        <p style="color: red; margin-top: 4%;">*</p>
+      </div>
+      <ion-input
+        style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;" aria-label="dni" name="dni" type="text" formControlName="dni"   ngDefaultControl [ngClass]="{'inactivo_email': !IdentidadInvalido}"></ion-input>
+
+      <div style="display: flex;">
+        <img class="icono"  src="https://cdn-icons-png.flaticon.com/512/10309/10309086.png" alt="perfil">
+        <h6 style="text-align: left; margin-left: 3%;">Número teléfono</h6>
+        <p style="color: red; margin-top: 4%;">*</p>
+      </div>
+
+      <ion-input
+        style="border-style: groove; width: 345px; margin-left: 2.5%; border-radius: 2ch; text-align: left;"aria-label="numero" name="numero" type="text" formControlName="numero"   ngDefaultControl [ngClass]="{'inactivo_email': !NumeroInvalido}"></ion-input>
+      <ion-button type="submit" color="danger"  [disabled]="!FormInvalid">Registrarse</ion-button>
+    </form>
+    
+  </div>
+</ion-content>
