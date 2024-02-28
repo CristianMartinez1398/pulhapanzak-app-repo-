@@ -10,6 +10,7 @@ import {
   IonButton,
   IonInput,
   IonLabel,
+  IonItem,
 } from '@ionic/angular/standalone';
 import { Login } from '../services/auth/models/login'
 import { IonIcon } from '@ionic/angular';
@@ -30,10 +31,12 @@ import { IonIcon } from '@ionic/angular';
     IonInput,
     IonLabel,
     IonButton,
-    
+    IonItem
   ],
 })
 export class RegisterPageComponent {
+
+  
 
   formBuilder = inject(FormBuilder);
 
@@ -48,8 +51,10 @@ export class RegisterPageComponent {
 
   get EmailInvalido(): boolean{
     const controlEmail = this.loginForm.get('email');
+
     if (controlEmail) {
       return controlEmail.hasError('email');
+      
     }
       return false;
   }
