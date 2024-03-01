@@ -18,7 +18,7 @@
     font-size: 16px;
     line-height: 22px;
   
-    color: #fd0a0a;
+    color: #fcfcfc;
   
     margin: 0;
   }
@@ -33,7 +33,7 @@
   
   .titulo{
     text-align: center;
-    margin-top: 25%;
+    margin-top: 1%;
     font-weight: bold;
     color: rgb(241, 55, 8);
   }
@@ -61,5 +61,23 @@
     height: 25px;
     margin-top: 2%;
     margin-left: 2%;
-    
   }
+
+  .btn {
+    --background: rgb(105, 166, 72);
+    --color: rgb(3, 46, 11);
+    font-weight: bold;
+    width: 320px; 
+    margin-left: 0.5%; 
+  }
+  .btn-google{
+    --border-color: gray;
+    --color: gray;
+    height: 0.5px;
+    width: 220px;
+  }  
+    
+    
+
+  
+  

@@ -12,14 +12,16 @@ import {
   IonLabel,
   IonItem,
   IonText,
+  IonRouterLink,
 } from '@ionic/angular/standalone';
 import { Login } from '../services/auth/models/login'
-import { IonIcon } from '@ionic/angular';
+import { RouterLink, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss'],
+  styleUrls: ['./register-page.component.css'],
   standalone: true,
   imports: [
     CommonModule,
@@ -32,8 +34,12 @@ import { IonIcon } from '@ionic/angular';
     IonInput,
     IonLabel,
     IonButton,
-    IonText
-  ],
+    IonText,
+    IonItem,
+    RouterLink, 
+    IonRouterLink,
+    RouterModule
+  ]
 })
 export class RegisterPageComponent {
 
