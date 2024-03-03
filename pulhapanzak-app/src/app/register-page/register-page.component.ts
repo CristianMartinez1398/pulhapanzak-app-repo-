@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl} from '@angular/forms';
 import {
   IonHeader,
   IonToolbar,
@@ -14,14 +14,15 @@ import {
   IonText,
   IonRouterLink,
 } from '@ionic/angular/standalone';
-import { Login } from '../services/auth/models/login'
+import { Registro } from '../services/auth/models/registro'
 import { RouterLink, RouterModule } from '@angular/router';
+import { group } from '@angular/animations';
 
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.css'],
+  styleUrls: ['./register-page.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -47,37 +48,59 @@ export class RegisterPageComponent {
 
   formBuilder = inject(FormBuilder);
 
+  
+
   loginForm: FormGroup = this.formBuilder.group({
-    nombre: ['', Validators.required],
-    apellidos: ['', Validators.required],
+    nombreapellido: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     contrasena: ['', Validators.required],
-    dni: ['', [Validators.required, Validators.minLength(13), Validators.pattern('^[0-9]+$')]],
-    numero: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^[0-9]+$')]]
+    ConfirmarContrasena: ['', Validators.required],
+    
   })
 
-  get EmailInvalido(): boolean{
-    const controlEmail = this.loginForm.get('email');
+  get RegisterNombreApellidoInvalido(): boolean{
+    const registercontrolNombreApellido = this.loginForm.get('nombreapellido');
 
-    if (controlEmail) {
-      return controlEmail.hasError('email');
+    if (registercontrolNombreApellido) {
+      return registercontrolNombreApellido.hasError('required');
       
     }
       return false;
   }
 
-  get IdentidadInvalido(): boolean{
-    const controlDNI = this.loginForm.get('dni');
-    if (controlDNI) {
-      return controlDNI.hasError('minlength');
+  get RegisterEmailInvalido(): boolean{
+    const registercontrolEmail = this.loginForm.get('email');
+
+    if (registercontrolEmail) {
+      return registercontrolEmail.hasError('email');
+      
+    }
+      return false;
+  }
+  
+  confirmarContrasenaValidator(control: AbstractControl): { [key: string]: any } | null {
+    const contrasena = this.loginForm.get('contrasena')?.value;
+    const confirmarContrasena = control.value;
+    return contrasena === confirmarContrasena ? null : { 'noCoincide': true };
+  }
+    
+  
+  
+   
+  
+
+  get RegisterContrasenaInvalido(): boolean{
+    const registercontrolContrasena = this.loginForm.get('contrasena');
+    if (registercontrolContrasena) {
+      return registercontrolContrasena.hasError('required');
     }
     return false
   }
 
-  get NumeroInvalido(): boolean{
-    const controlNumero = this.loginForm.get('numero');
-    if (controlNumero) {
-      return controlNumero.hasError('minlength');
+  get RegisterConfirmarContrasenaInvalido(): boolean{
+    const registercontrolConfirmarContrasena = this.loginForm.get('ConfirmarContrasena');
+    if (registercontrolConfirmarContrasena) {
+      return registercontrolConfirmarContrasena.hasError('required');
     }
     return false
   }
@@ -88,18 +111,17 @@ export class RegisterPageComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const login: Login = {
-        nombre: this.loginForm?.get('nombre')?.value,
-        apellidos: this.loginForm?.get('apellidos')?.value,
+      const login: Registro = {
+        nombreapellido: this.loginForm?.get('nombreapellido')?.value,
         email: this.loginForm?.get('email')?.value,
         contrasena: this.loginForm?.get('contrasena')?.value,
-        dni: this.loginForm?.get('dni')?.value,
-        numero: this.loginForm?.get('numero')?.value
+        ConfirmarContrasena: this.loginForm?.get('ConfirmarContrasena')?.value,
+        
       }
     }
   }
 
-  constructor() { }
+  
 
  
 }
