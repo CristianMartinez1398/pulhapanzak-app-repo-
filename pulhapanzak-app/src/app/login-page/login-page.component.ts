@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {FormBuilder, FormGroup,  ReactiveFormsModule,  Validators} from '@angular/forms';
-import { IonButton, IonContent, IonHeader, IonInput, IonRouterLink, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonRouterLink, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { IniciarSesion } from '../services/auth/models/iniciar-sesion'
 import { CommonModule } from '@angular/common';
@@ -19,9 +19,10 @@ import { AuthService } from '../auth/services/auth.service';
     IonContent,
     IonInput,
     IonButton,
+    IonItem,
     RouterLink, 
     IonRouterLink,
-    RouterModule
+    RouterModule,
   ]
 })
 export class LoingPageComponent {

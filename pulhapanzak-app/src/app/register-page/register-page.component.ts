@@ -43,7 +43,7 @@ const Passsegundo = document.getElementById('ConfirmarContrasena');
     IonItem,
     RouterLink, 
     IonRouterLink,
-    RouterModule
+    RouterModule,
   ]
 })
 export class RegisterPageComponent {
