@@ -15,9 +15,13 @@ import {
   IonRouterLink,
 } from '@ionic/angular/standalone';
 import { Registro } from '../services/auth/models/registro'
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { group } from '@angular/animations';
+import { AuthRegistroService } from '../auth-registro/services/auth-registro.service';
+import { user } from '@angular/fire/auth';
 
+const Passuno = document.getElementById('contrasena');
+const Passsegundo = document.getElementById('ConfirmarContrasena');
 
 @Component({
   selector: 'app-register-page',
@@ -46,8 +50,10 @@ export class RegisterPageComponent {
 
   
 
+  
+  private authService = inject(AuthRegistroService)
   formBuilder = inject(FormBuilder);
-
+  private router = inject(Router)
   
 
   loginForm: FormGroup = this.formBuilder.group({
@@ -55,8 +61,16 @@ export class RegisterPageComponent {
     email: ['', [Validators.required, Validators.email]],
     contrasena: ['', Validators.required],
     ConfirmarContrasena: ['', Validators.required],
-    
-  })
+  }, { validator: this.checkPasswords })
+
+  checkPasswords(group: FormGroup) { 
+    let pass = group.controls['contrasena'].value;
+    let confirmPass = group.controls['ConfirmarContrasena'].value;
+
+    return pass === confirmPass ? null : { notSame: true }     
+  }
+  
+  
 
   get RegisterNombreApellidoInvalido(): boolean{
     const registercontrolNombreApellido = this.loginForm.get('nombreapellido');
@@ -78,17 +92,7 @@ export class RegisterPageComponent {
       return false;
   }
   
-  confirmarContrasenaValidator(control: AbstractControl): { [key: string]: any } | null {
-    const contrasena = this.loginForm.get('contrasena')?.value;
-    const confirmarContrasena = control.value;
-    return contrasena === confirmarContrasena ? null : { 'noCoincide': true };
-  }
-    
   
-  
-   
-  
-
   get RegisterContrasenaInvalido(): boolean{
     const registercontrolContrasena = this.loginForm.get('contrasena');
     if (registercontrolContrasena) {
@@ -109,15 +113,33 @@ export class RegisterPageComponent {
     return this.loginForm.valid;
   }
 
+  createUser(registro: Registro){
+    this.authService.createUserInFirestore(registro).then(() => {
+      console.log("Usuario se registro exitosamente");
+      
+    }).catch((error) => {
+      console.log('Ha ocurrido un error a registrarse', error);
+    })
+  }
+
   onSubmit(): void {
     if (this.loginForm.valid) {
       const login: Registro = {
+        uid: '',
         nombreapellido: this.loginForm?.get('nombreapellido')?.value,
         email: this.loginForm?.get('email')?.value,
         contrasena: this.loginForm?.get('contrasena')?.value,
         ConfirmarContrasena: this.loginForm?.get('ConfirmarContrasena')?.value,
-        
+
       }
+      this.authService.registerUserWithEmailAndPassword(login).then((result) => {
+        console.log("Usuario se registro exitosamente");
+        login.uid = result.user.uid;
+        this.createUser(login)
+        this.router.navigate(['/Login'])
+      }).catch((error) => {
+        console.log('Ha ocurrido un error a registrarse', error);
+      })
     }
   }
 

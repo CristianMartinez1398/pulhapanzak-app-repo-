@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import {FormBuilder, FormGroup,  ReactiveFormsModule,  Validators} from '@angular/forms';
 import { IonButton, IonContent, IonHeader, IonInput, IonRouterLink, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { IniciarSesion } from '../services/auth/models/iniciar-sesion'
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth/services/auth.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -24,8 +25,9 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class LoingPageComponent {
-
-  formBuilder = inject(FormBuilder);
+  private _router = inject(Router)
+  private _authService = inject(AuthService)  
+  private formBuilder = inject(FormBuilder);
   
   LoginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -55,11 +57,15 @@ export class LoingPageComponent {
   onSubmit(): void {
     if (this.LoginForm.valid) {
       const login: IniciarSesion = {
-        
         email: this.LoginForm?.get('email')?.value,
         contrasena: this.LoginForm?.get('contrasena')?.value,
-        
       }
+      this._authService.signInWithEmailAndPassword(login).then(() => {
+        console.log('Usuario entro exitosamente')
+        this._router.navigate(['/Home'])
+      }).catch((error) => {
+        console.log('Ha ocurrido un error al hacer login');
+      });
     }
   }  
 

@@ -1,5 +1,5 @@
-import { Component,  } from '@angular/core';
- 
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../auth/services/auth.service';
 
 import {
   IonHeader,
@@ -32,5 +32,5 @@ import {
 })
 export class HomePage {
   
-
+  private _authService = inject(AuthService) 
 }
