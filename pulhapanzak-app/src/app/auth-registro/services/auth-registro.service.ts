@@ -17,7 +17,11 @@ export class AuthRegistroService {
 
   createUserInFirestore(registro: Registro){
     const userReference = doc(this._collection, registro.uid)
-    return setDoc(userReference, registro)
+    return setDoc(userReference, {
+      nombreapellido: registro.nombreapellido,
+      email: registro.email,
+
+    })
   }
 
   registerUserWithEmailAndPassword(registro: Registro){

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {FormBuilder, FormGroup,  ReactiveFormsModule,  Validators} from '@angular/forms';
-import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonRouterLink, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonRouterLink, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { IniciarSesion } from '../services/auth/models/iniciar-sesion'
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,7 @@ import { AuthService } from '../auth/services/auth.service';
     IonInput,
     IonButton,
     IonItem,
+    IonIcon,
     RouterLink, 
     IonRouterLink,
     RouterModule,
@@ -66,6 +67,7 @@ export class LoingPageComponent {
         this._router.navigate(['/Home'])
       }).catch((error) => {
         console.log('Ha ocurrido un error al hacer login');
+        console.log(error);
       });
     }
   }  
