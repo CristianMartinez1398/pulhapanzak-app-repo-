@@ -101,7 +101,7 @@ export class ProfilePageComponent implements OnInit {
   
 
   get FormInvalid(): boolean {
-    return this.UserForm.valid;
+    return this.UserForm.invalid;
   }
 
     getUserLoggued(): void {
@@ -123,6 +123,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   onSubmit(): void {
+    debugger;
     if (!this.FormInvalid && this.user) {
       this.user.nombreapellido = this.UserForm?.get('nombreapellido')?.value;
       this.user.numeroDNI = this.UserForm?.get('numeroDNI')?.value;
@@ -131,7 +132,9 @@ export class ProfilePageComponent implements OnInit {
       this.profileService
       .uploadImage(this.imageSrc, this.user?.uid ?? '')
       .then((url) => {
+        debugger;
         if (url) {
+
           if (this.user) this.user.imagenperfil = url;
         }
         this.saveUser();
