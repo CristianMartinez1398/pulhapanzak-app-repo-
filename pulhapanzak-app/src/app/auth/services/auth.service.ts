@@ -28,7 +28,7 @@ export class AuthService {
     )
   }
 
-  private isUsertLoggedIn(){
+   isUsertLoggedIn(){
     return !!this.getCurrentUser();
   }
 

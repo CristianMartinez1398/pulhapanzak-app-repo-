@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { AuthService } from '../auth/services/auth.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { AuthRegistroService } from '../auth-registro/services/auth-registro.service';
+import { Registro } from '../services/auth/models/registro';
+import { HomeService } from '../homeservice/home.service';
 
 import {
   IonHeader,
@@ -10,6 +12,7 @@ import {
   IonButton,
   IonInput,
   IonLabel,
+  ToastController,
 } from '@ionic/angular/standalone';
 
 
@@ -30,7 +33,43 @@ import {
     
   ],
 })
-export class HomePage {
+export class HomePage  implements OnInit{
   
-  private _authService = inject(AuthService) 
+  private authService = inject(AuthRegistroService);
+  private homeService = inject(HomeService);
+  private toastController = inject(ToastController);
+  user: Registro | null = null;
+  welcome: string = '';
+
+  async getCurrentPosition(): Promise<void> {
+    await this.homeService
+      .getCurrentPosition()
+      .then((position) => {
+        console.log('Current position:', position);
+        this.showAlert(
+          `Su posición ha sido obtenida con éxito (Latitud: ${position?.coords?.latitude} / Longitud: ${position?.coords?.longitude})`
+        );
+      })
+      .catch(() => {
+        this.showAlert('Ha ocurrido un error, vuelva a intentarlo', true);
+      });
+  }
+
+  ngOnInit(): void {
+    this.authService.getUserLogged().then((user) => {
+      this.user = user;
+      this.welcome = `Bienvenido(a) ${user?.nombreapellido ?? ''}`;
+    });
+    this.getCurrentPosition();
+  }
+
+  async showAlert(message: string, error: boolean = false): Promise<void> {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 5000,
+      position: 'bottom',
+      color: error ? 'danger' : 'success',
+    });
+    await toast.present();
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import {FormBuilder, FormGroup,  ReactiveFormsModule,  Validators} from '@angular/forms';
-import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonRouterLink, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonRouterLink, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { IniciarSesion } from '../services/auth/models/iniciar-sesion'
 import { CommonModule } from '@angular/common';
@@ -24,17 +24,21 @@ import { AuthService } from '../auth/services/auth.service';
     RouterLink, 
     IonRouterLink,
     RouterModule,
+    
   ]
 })
 export class LoingPageComponent {
   private _router = inject(Router)
   private _authService = inject(AuthService)  
   private formBuilder = inject(FormBuilder);
+  private toastController = inject(ToastController);
+
   
   LoginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     contrasena: ['', Validators.required]
   })
+  
 
   get LoginEmailInvalido(): boolean{
     const control_loginEmail = this.LoginForm.get('email');
@@ -63,15 +67,23 @@ export class LoingPageComponent {
         contrasena: this.LoginForm?.get('contrasena')?.value,
       }
       this._authService.signInWithEmailAndPassword(login).then(() => {
-        console.log('Usuario entro exitosamente')
-        this._router.navigate(['/Perfil'])
+        this.showAlert('Usuario entro exitosamente')
+        this._router.navigate(['/tabs/home'])
       }).catch((error) => {
-        console.log('Ha ocurrido un error al hacer login');
+        this.showAlert('Ha ocurrido un error al hacer login');
         console.log(error);
       });
     }
   }  
-
+  async showAlert(message: string, error: boolean = false): Promise<void> {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 5000,
+      position: 'bottom',
+      color: error ? 'danger' : 'success',
+    });
+    await toast.present();
+  }
   constructor() { }
 
   
