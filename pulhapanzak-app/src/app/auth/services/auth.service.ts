@@ -31,9 +31,8 @@ export class AuthService {
 
   async signInWithEmailAndPassword(login: IniciarSesion){
     const isAuthenticated = await this.isUsertLoggedIn();
-    if (isAuthenticated) {
-      return Promise.reject('User already login')
-    }
+    if (isAuthenticated) return Promise.reject('User already login')
+    
     return signInWithEmailAndPassword(this._auth, login.email, login.contrasena)
   }
 
