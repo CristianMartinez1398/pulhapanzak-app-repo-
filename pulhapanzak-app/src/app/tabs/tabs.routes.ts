@@ -9,19 +9,19 @@ export const routes: Routes = [
     component: TabsComponent,
     children: [
       {
-        path: 'home',
+        path: 'Home',
         loadComponent: () =>
           import('../home/home.page').then((m) => m.HomePage),
       },
       {
-        path: 'gallery',
+        path: 'Gallery',
         loadComponent: () =>
           import('../gallery/gallery.component').then(
             (m) => m.GalleryComponent
           ),
       },
       {
-        path: 'profile',
+        path: 'Profile',
         loadComponent: () =>
           import('../profile-page/profile-page.component').then(
             (m) => m.ProfilePageComponent
@@ -29,14 +29,14 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/tabs/Home',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/tabs/Home',
     pathMatch: 'full',
   },
 ];

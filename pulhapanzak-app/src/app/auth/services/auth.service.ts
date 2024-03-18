@@ -17,7 +17,7 @@ export class AuthService {
   private _firestore = inject(Firestore)
   private _collection = collection(this._firestore, Path)
 
-  CreateUserWithEmailandPassword(registro: Registro){
+  /*CreateUserWithEmailandPassword(registro: Registro){
     if (this.isUsertLoggedIn()) {
       return Promise.reject('user already loggued in')
     }
@@ -26,18 +26,20 @@ export class AuthService {
       registro.email,
       registro.contrasena
     )
-  }
+  }*/
 
-   isUsertLoggedIn(){
-    return !!this.getCurrentUser();
+  async isUsertLoggedIn() {
+    const user = await this.getCurrentUser();
+    return !!user;
   }
 
   private getCurrentUser(){
     return this._auth.currentUser;
   }
 
-  signInWithEmailAndPassword(login: IniciarSesion){
-    if (this.isUsertLoggedIn()) {
+  async signInWithEmailAndPassword(login: IniciarSesion){
+    const isAuthenticated = await this.isUsertLoggedIn();
+    if (isAuthenticated) {
       return Promise.reject('User already login')
     }
     return signInWithEmailAndPassword(this._auth, login.email, login.contrasena)
