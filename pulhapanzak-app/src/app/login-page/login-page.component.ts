@@ -42,10 +42,9 @@ export class LoingPageComponent {
 
   get LoginEmailInvalido(): boolean{
     const control_loginEmail = this.LoginForm.get('email');
-    if (control_loginEmail) {
-      return control_loginEmail.hasError('email')
-    }
-    return false
+    return control_loginEmail?control_loginEmail.hasError('email'): false;
+    
+    
   }
 
   get LoginPasswordInvalido(): boolean{
