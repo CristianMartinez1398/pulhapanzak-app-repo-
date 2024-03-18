@@ -13,6 +13,7 @@ import {
   IonItem,
   IonText,
   IonRouterLink,
+  ToastController,
 } from '@ionic/angular/standalone';
 import { Registro } from '../services/auth/models/registro'
 import { Router, RouterLink, RouterModule } from '@angular/router';
@@ -54,7 +55,7 @@ export class RegisterPageComponent {
   private authService = inject(AuthRegistroService)
   private formBuilder = inject(FormBuilder);
   private router = inject(Router)
-  
+  private toastController = inject(ToastController);
 
   loginForm: FormGroup = this.formBuilder.group({
     nombreapellido: ['', Validators.required],
@@ -138,16 +139,24 @@ export class RegisterPageComponent {
 
       }
       this.authService.registerUserWithEmailAndPassword(login).then((result) => {
-        console.log("Usuario se registro exitosamente");
+        this.showAlert("Usuario se registro exitosamente");
         login.uid = result.user.uid;
         this.createUser(login)
         this.router.navigate(['/Login'])
       }).catch((error) => {
-        console.log('Ha ocurrido un error a registrarse', error);
+        this.showAlert('Ha ocurrido un error a registrarse', error);
       })
     }
   }
-
+  async showAlert(message: string, error: boolean = false): Promise<void> {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 5000,
+      position: 'bottom',
+      color: error ? 'danger' : 'success',
+    });
+    await toast.present();
+  }
   
 
  
