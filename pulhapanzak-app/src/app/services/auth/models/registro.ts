@@ -9,5 +9,6 @@ export interface Registro {
     fechanacimiento: Date | null
     numerotelefono: string | null
     imagenperfil: string | null
+    deviceId: string | null
     
 }
