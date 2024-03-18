@@ -68,9 +68,9 @@ export class LoingPageComponent {
       this._authService.signInWithEmailAndPassword(login).then(() => {
         this.showAlert('Usuario entro exitosamente')
         this._router.navigate(['/tabs/Home'])
-      }).catch((error) => {
-        this.showAlert('Ha ocurrido un error al hacer login');
-        console.log(error);
+      }).catch(() => {
+        this.showAlert('Ha ocurrido un error al hacer login', true);
+       
       });
     }
   }  
