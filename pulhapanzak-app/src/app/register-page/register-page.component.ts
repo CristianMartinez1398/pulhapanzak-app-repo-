@@ -134,7 +134,7 @@ export class RegisterPageComponent {
         fechanacimiento: null,
         numerotelefono: null,
         imagenperfil: '',
-        
+        deviceId: null
 
       }
       this.authService.registerUserWithEmailAndPassword(login).then((result) => {
