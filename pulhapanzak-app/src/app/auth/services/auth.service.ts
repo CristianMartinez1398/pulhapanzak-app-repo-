@@ -22,6 +22,7 @@ export class AuthService {
   async isUsertLoggedIn() {
     const user = await this.getCurrentUser();
     return !!user;
+    
   }
 
   private getCurrentUser(){
