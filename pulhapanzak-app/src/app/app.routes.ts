@@ -12,7 +12,10 @@ export const routes: Routes = [
     path: 'Registro',
     loadComponent: () => import('./register-page/register-page.component').then((m) => m.RegisterPageComponent),
   },
-  
+  {
+    path: 'Perfil',
+    loadComponent: () => import('./profile-page/profile-page.component').then((m) => m.ProfilePageComponent),
+  },
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
