@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsComponent } from './tabs.component';
-import { AuthGuard } from '../auth/services/auth.guard';
+
 
 
 export const routes: Routes = [
@@ -9,19 +9,19 @@ export const routes: Routes = [
     component: TabsComponent,
     children: [
       {
-        path: 'Home',
+        path: 'home',
         loadComponent: () =>
           import('../home/home.page').then((m) => m.HomePage),
       },
       {
-        path: 'Gallery',
+        path: 'gallery',
         loadComponent: () =>
           import('../gallery/gallery.component').then(
             (m) => m.GalleryComponent
           ),
       },
       {
-        path: 'Profile',
+        path: 'profile',
         loadComponent: () =>
           import('../profile-page/profile-page.component').then(
             (m) => m.ProfilePageComponent
@@ -29,14 +29,14 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/Home',
+        redirectTo: '/tabs/home',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/Home',
+    redirectTo: '/tabs/home',
     pathMatch: 'full',
   },
 ];

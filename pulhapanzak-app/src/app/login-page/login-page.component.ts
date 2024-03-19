@@ -1,8 +1,24 @@
 import { Component, inject } from '@angular/core';
-import {FormBuilder, FormGroup,  ReactiveFormsModule,  Validators} from '@angular/forms';
-import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonRouterLink, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonRouterLink,
+  IonTitle,
+  IonToolbar,
+  ToastController,
+} from '@ionic/angular/standalone';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { IniciarSesion } from '../services/auth/models/iniciar-sesion'
+import { IniciarSesion } from '../services/auth/models/iniciar-sesion';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth/services/auth.service';
 @Component({
@@ -21,59 +37,56 @@ import { AuthService } from '../auth/services/auth.service';
     IonButton,
     IonItem,
     IonIcon,
-    RouterLink, 
+    RouterLink,
     IonRouterLink,
     RouterModule,
-    
-  ]
+  ],
 })
 export class LoingPageComponent {
-  private _router = inject(Router)
-  private _authService = inject(AuthService)  
+  private _router = inject(Router);
+  private _authService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
   private toastController = inject(ToastController);
 
-  
-  LoginForm: FormGroup = this.formBuilder.group({
+  loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    contrasena: ['', Validators.required]
-  })
-  
+    contrasena: ['', Validators.required],
+  });
 
-  get LoginEmailInvalido(): boolean{
-    const control_loginEmail = this.LoginForm.get('email');
-    return control_loginEmail?control_loginEmail.hasError('email'): false;
-    
-    
+  get LoginEmailInvalido(): boolean {
+    const control_loginEmail = this.loginForm.get('email');
+    return control_loginEmail ? control_loginEmail.hasError('email') : false;
   }
 
-  get LoginPasswordInvalido(): boolean{
-    const control_loginPassword = this.LoginForm.get('contrasena');
+  get LoginPasswordInvalido(): boolean {
+    const control_loginPassword = this.loginForm.get('contrasena');
     if (control_loginPassword) {
-      return control_loginPassword.hasError('required')
+      return control_loginPassword.hasError('required');
     }
-    return false
+    return false;
   }
 
-  get LoginInvalid(): boolean{
-    return this.LoginForm.valid;
+  get LoginInvalid(): boolean {
+    return this.loginForm.valid;
   }
 
   onSubmit(): void {
-    if (this.LoginForm.valid) {
+    if (this.LoginInvalid) {
       const login: IniciarSesion = {
-        email: this.LoginForm?.get('email')?.value,
-        contrasena: this.LoginForm?.get('contrasena')?.value,
-      }
-      this._authService.signInWithEmailAndPassword(login).then(() => {
-        this.showAlert('Usuario entro exitosamente')
-        this._router.navigate(['/tabs/Home'])
-      }).catch(() => {
-        this.showAlert('Ha ocurrido un error al hacer login', true);
-       
-      });
+        email: this.loginForm?.get('email')?.value,
+        contrasena: this.loginForm?.get('contrasena')?.value,
+      };
+      this._authService
+        .signInWithEmailAndPassword(login)
+        .then(() => {
+          this._router.navigate(['/tabs/home']);
+          this.showAlert('Usuario entro exitosamente');
+        })
+        .catch(() => {
+          this.showAlert('Ha ocurrido un error al hacer login', true);
+        });
     }
-  }  
+  }
   async showAlert(message: string, error: boolean = false): Promise<void> {
     const toast = await this.toastController.create({
       message: message,
@@ -83,8 +96,5 @@ export class LoingPageComponent {
     });
     await toast.present();
   }
-  constructor() { }
-
   
-
 }

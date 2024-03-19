@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailLink, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithEmailLink, createUserWithEmailAndPassword, user } from '@angular/fire/auth';
 import { IniciarSesion } from 'src/app/services/auth/models/iniciar-sesion';
 import { Firestore } from '@angular/fire/firestore';
 import { collection, doc, setDoc } from 'firebase/firestore';
-import { signInWithEmailAndPassword, } from 'firebase/auth';
+import { User, signInWithEmailAndPassword, } from 'firebase/auth';
 import { Registro } from 'src/app/services/auth/models/registro'
 
 const Path = 'users';
@@ -25,8 +25,12 @@ export class AuthService {
     
   }
 
-  private getCurrentUser(){
-    return this._auth.currentUser;
+  private getCurrentUser(): Promise<User | null>{
+    return new Promise<User | null>((resolve) =>{
+      this._auth.onAuthStateChanged((user) => {
+        resolve(user)
+      }) 
+    }) 
   }
 
   async signInWithEmailAndPassword(login: IniciarSesion){
