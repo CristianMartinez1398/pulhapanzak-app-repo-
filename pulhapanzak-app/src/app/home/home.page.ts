@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthRegistroService } from '../auth-registro/services/auth-registro.service';
-import { Registro } from '../services/auth/models/registro';
+
 import { HomeService } from '../homeservice/home.service';
 
 import {
@@ -14,6 +14,7 @@ import {
   IonLabel,
   ToastController,
 } from '@ionic/angular/standalone';
+import { Registro } from '../services/auth/models/registro';
 
 
 @Component({
@@ -58,7 +59,7 @@ export class HomePage  implements OnInit{
   ngOnInit(): void {
     this.authService.getUserLogged().then((user) => {
       this.user = user;
-      this.welcome = `Bienvenido(a) ${user?.nombreapellido ?? ''}`;
+      this.welcome = `Bienvenido(a) ${user?. nombreapellido ?? ''}`;
     });
     this.getCurrentPosition();
   }

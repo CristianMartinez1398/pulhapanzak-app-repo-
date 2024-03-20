@@ -43,14 +43,13 @@ export class AuthRegistroService {
   async getUserLogged() {
     try {
       const user = await this.getCurrentUser();
-      if (!user) return null;
-
       const userDocument = doc(this._firestore, Path, user.uid);
       const userSnapshot = await getDoc(userDocument);
 
       if (userSnapshot.exists()) {
         const userData = userSnapshot.data() as Registro;
-        return userData;
+        //userData.uid = userData.uid
+        return userData ;
       }
       return null;
     } catch (error) {

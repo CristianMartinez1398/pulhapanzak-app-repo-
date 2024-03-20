@@ -47,6 +47,7 @@ export class ProfilePageComponent implements OnInit {
   private authService = inject(AuthRegistroService);
   private formBuilder = inject(FormBuilder);
   private user: Registro | null = null;
+  private router = inject(Router);
   private profileService = inject(ProfileService);
   imageSrc: string = 'assets/16480.png';
 
@@ -105,7 +106,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
     getUserLoggued(): void {
-    this.authService.getUserLogged().then((user: Registro | null) => {
+    this.authService.getUserLogged().then((user:Registro | null) => {
       this.user = user;
       this.imageSrc = user?.imagenperfil ?? this.imageSrc;
       this.UserForm.patchValue({
