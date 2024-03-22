@@ -142,7 +142,7 @@ export class RegisterPageComponent {
         this.showAlert("Usuario se registro exitosamente");
         login.uid = result.user.uid;
         this.createUser(login)
-        this.router.navigate(['/Login'])
+        this.router.navigate(['/home'])
       }).catch((error) => {
         this.showAlert('Ha ocurrido un error a registrarse', error);
       })
